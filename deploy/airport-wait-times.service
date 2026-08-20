@@ -1,0 +1,18 @@
+[Unit]
+Description=NYC Airport Wait Times Docker Compose application
+Requires=docker.service tailscaled.service
+After=docker.service tailscaled.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/home/ubuntu/projects/airport_wait_times
+ExecStartPre=-/usr/bin/docker network create openjack-edge
+ExecStart=/usr/bin/docker compose --env-file .env -f compose.prod.yaml up -d --build --remove-orphans
+ExecReload=/usr/bin/docker compose --env-file .env -f compose.prod.yaml up -d --build --remove-orphans
+ExecStop=/usr/bin/docker compose --env-file .env -f compose.prod.yaml down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target

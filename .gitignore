@@ -1,0 +1,20 @@
+.env
+# Private machine-specific deployment notes.
+DEPLOYMENT.md
+data/*.db*
+artifacts/*
+backups/*.db
+logs/*
+!artifacts/.gitkeep
+!backups/.gitkeep
+!logs/caddy/.gitkeep
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.py[cod]
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+coverage/
+.DS_Store
